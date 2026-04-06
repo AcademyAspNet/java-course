@@ -8,7 +8,7 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 
-public class Main {
+public class HttpMessageServer {
 
     static void main() throws IOException {
         // HTTP: 80 или 8080, HTTPS: 443
