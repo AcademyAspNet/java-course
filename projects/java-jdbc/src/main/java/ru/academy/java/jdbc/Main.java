@@ -14,13 +14,16 @@ public class Main {
         String englishName = IO.readln("Продублируйте название на английском: ");
         double price = Double.parseDouble(IO.readln("Укажите цену: "));
 
+        String sql = "INSERT INTO MENU (NAME, NAME_ENG, PRICE) VALUES (?, ?, ?)";
+
         try (Connection connection = DriverManager.getConnection(url, user, password);
-             Statement statement = connection.createStatement()) {
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-            String sql = "INSERT INTO MENU (NAME, NAME_ENG, PRICE) " +
-                         "VALUES ('" + name + "', '" + englishName + "', " + price + ")";
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, englishName);
+            preparedStatement.setDouble(3, price);
 
-            statement.executeUpdate(sql);
+            preparedStatement.execute();
         }
     }
 
