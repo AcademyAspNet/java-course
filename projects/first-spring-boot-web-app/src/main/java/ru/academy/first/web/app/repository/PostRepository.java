@@ -1,12 +1,8 @@
 package ru.academy.first.web.app.repository;
 
+import org.springframework.data.repository.CrudRepository;
 import ru.academy.first.web.app.model.entity.Post;
 
-import java.util.List;
-import java.util.Optional;
+public interface PostRepository extends CrudRepository<Post, Long> {
 
-public interface PostRepository {
-
-    List<Post> findAll();
-    Optional<Post> findById(long id);
 }

@@ -1,26 +1,28 @@
 package ru.academy.first.web.app.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
-@Table(name = "posts")
-public class Post {
+@Table(name = "users")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String text;
+    private String name;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User author;
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Post> posts;
 
     public Long getId() {
         return id;
@@ -30,12 +32,12 @@ public class Post {
         this.id = id;
     }
 
-    public String getText() {
-        return text;
+    public String getName() {
+        return name;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -46,11 +48,11 @@ public class Post {
         this.createdAt = createdAt;
     }
 
-    public User getAuthor() {
-        return author;
+    public List<Post> getPosts() {
+        return posts;
     }
 
-    public void setAuthor(User author) {
-        this.author = author;
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 }
